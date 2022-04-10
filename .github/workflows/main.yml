@@ -5,22 +5,32 @@ on:
       - master
   workflow_dispatch:
 jobs:
-  build:
+  debug:
+    name: Debug
     runs-on: ubuntu-latest
     steps:
-      - name: Check out source code
-        uses: actions/checkout@v3
-
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'adopt'
-          java-version: '16'
-          cache: 'maven'
-
-      - name: maven-settings-xml-action
-        uses: whelk-io/maven-settings-xml-action@v4
-        with:
-          servers: '[{ "id": "docker.io", "username": "vanouche", "password": "${{ secrets.DOCKER_PASS }}" }]'
-
-      - name: mvn deploy
-        run: mvn -B deploy -DskipTests=true --file pom.xml
+      - name: Dump env
+        run: env | sort
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Check out source code
+#        uses: actions/checkout@v3
+#
+#      - uses: actions/setup-java@v3
+#        with:
+#          distribution: 'adopt'
+#          java-version: '16'
+#          cache: 'maven'
+#
+#      - name: maven-settings-xml-action
+#        uses: whelk-io/maven-settings-xml-action@v4
+#        with:
+#          servers: '[{ "id": "docker.io", "username": "vanouche", "password": "${{ secrets.DOCKER_PASS }}" }]'
+#
+#      - name: mvn deploy
+#        run: mvn -B deploy -DskipTests=true --file pom.xml
