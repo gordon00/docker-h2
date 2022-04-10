@@ -17,4 +17,4 @@ jobs:
           java-version: '16'
 
       - name: mvn package
-        run: mvn -B package --file pom.xml
+        run: mvn -B verify --file pom.xml
