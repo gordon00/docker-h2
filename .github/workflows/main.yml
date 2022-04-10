@@ -17,5 +17,10 @@ jobs:
           java-version: '16'
           cache: 'maven'
 
+      - name: maven-settings-xml-action
+        uses: whelk-io/maven-settings-xml-action@v4
+        with:
+          servers: '[{ "id": "docker.io", "username": "vanouche", "password": "${{ secrets.DOCKER_PASS }}" }]'
+
       - name: mvn deploy
         run: mvn -B deploy -DskipTests=true --file pom.xml
