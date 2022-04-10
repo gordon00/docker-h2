@@ -17,5 +17,5 @@ jobs:
           java-version: '16'
           cache: 'maven'
 
-      - name: mvn package
-        run: mvn -B verify --file pom.xml
+      - name: mvn deploy
+        run: mvn -B deploy -DskipTests=true --file pom.xml
